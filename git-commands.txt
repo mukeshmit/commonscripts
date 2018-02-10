@@ -1,0 +1,28 @@
+Git Commands : 
+
+To change user of git 
+1) git config --global --unset credential.helper
+2) git config --system --unset credential.helper
+3) git config --global user.name "Bob" - add username to git repo 
+4) git config --global user.email "bob@example.com" - add user email to git repo 
+5) remove credentials of previous from control panel by click of Managecredentials and removing generic credential
+6) Fill credential details in the popup
+7) git config --global --list = to show detail of logedin user in repo
+8) git status
+9) git add . 
+git add -f . // to add files ignored
+10) git commit -m "comment"
+11) git push
+12) git pull
+13) git rm --cached directory
+https://github.com/mukeshmit/emp-portal.git
+
+https://mukeshmit:Mukesh_123!@github.com/mukeshmit/emp-portal.git
+
+########################################
+window command : 
+DIR - list directory
+
+Edit Any FIle with command 
+(Editor Name) notepad C:\wamp\bin\apache\apache2.4.23\bin\php.ini
+
