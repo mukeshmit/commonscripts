@@ -1,0 +1,8 @@
+public function download($fileName){
+		$file_path = WWW_ROOT . '/edifiles/' . $fileName;
+		$this->response->file($file_path, array(
+			'download' => true,
+			'name' => $fileName,
+		));
+		return $this->response;
+	}
