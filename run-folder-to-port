@@ -1,0 +1,2 @@
+Asus@DESKTOP-MKDDV08 MINGW64 /c/wamp/www/braintree_php_example (master)
+$ php -S localhost:3000 -t public_html
