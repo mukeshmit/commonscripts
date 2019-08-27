@@ -1,0 +1,30 @@
+Contact Form 7 is one of the most popular form management plugins available to WordPress, but it can be a little tricky when you need to extend the functionality beyond the default available options.
+
+Fortunately, we have on_sent_ok and wpcf7_before_send_mail which allow us to run our own custom commands before and after form submission.
+
+For example, I recently needed to create a function that needed to dynamically generate an XML file on form submission, before attaching the XML to the Contact Form 7 email.
+
+The code below creates a similar custom function before a Contact form 7 form is submitted. We need to add this code to the theme’s functions.php file, adding the wpcf7_before_send_mail hook as an add_action call.
+
+add_action('wpcf7_before_send_mail', 'CF7_pre_send');
+ 
+function CF7_pre_send($cf7) {
+    //Put PHP here
+}
+
+One thing to note is that if you try and use echo to try and show any output, this will not be displayed which could look like the function isn’t being triggered. This is due to how Contact Form 7 is designed to work using AJAX commands that execute PHP.
+
+If you want to use form field data, we can grab this using regular $_POST variables as below:
+
+add_action( 'wpcf7_before_send_mail', 'CF7_pre_send' );
+ 
+function CF7_pre_send($cf7) {
+   $output = "";
+   $output .= "Name: " . $_POST['name'];
+   $output .= "Email: " . $_POST['email'];
+ $output .= "Message: " . $_POST['message'];
+ 
+ file_put_contents("cf7outputtest.txt", $output);
+}
+
+In this example, I’ve used file_put_contents which will save the submitted form data as a regular text file. The file is saved to the WordPress site root.
