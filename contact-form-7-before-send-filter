@@ -28,3 +28,44 @@ function CF7_pre_send($cf7) {
 }
 
 In this example, I’ve used file_put_contents which will save the submitted form data as a regular text file. The file is saved to the WordPress site root.
+
+
+<?php
+<?php
+add_action('wpcf7_before_send_mail','CF7_post_send');
+function CF7_post_send($cf7) {
+	$name = $_POST['your-name'];
+	$phone = $_POST['tel-785'];
+	$body = 'Thanks for sharing your detail. click click here to download Mtruck App Link.';
+	$query = http_build_query(array('to' =>$phone,'body' =>$body,'sender'=>'MTRUCK','type'=>'TXN'));
+	$curl = curl_init();
+	curl_setopt_array($curl, array(
+	  CURLOPT_URL => "https://api.ap.kaleyra.io/v1/HXAP1642632735IN/messages/",
+	  CURLOPT_RETURNTRANSFER => true,
+	  CURLOPT_ENCODING => "",
+	  CURLOPT_MAXREDIRS => 10,
+	  CURLOPT_TIMEOUT => 30,
+	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	  CURLOPT_CUSTOMREQUEST => "POST",
+	  CURLOPT_POSTFIELDS => $query,
+	  CURLOPT_HTTPHEADER => array(
+		"api-key: A1e5746f4c4f70d25fa057b8cf8b99564",
+		"cache-control: no-cache",
+		"content-type: application/x-www-form-urlencoded",
+		"postman-token: c4d8ebfd-e962-abe5-f10e-ebec791d7fb8"
+	  ),
+	));
+	
+	$response = curl_exec($curl);
+	$err = curl_error($curl);
+	curl_close($curl);
+
+	if ($err) {
+	  $err = (string) $err;
+	  mail('mtrucktest@yopmail.com', 'error coming', $err);
+	} else {
+	  $response = (string) $response;
+	  mail('mtrucktest@yopmail.com', 'Success coming', $response);
+	}
+	exit;
+}
