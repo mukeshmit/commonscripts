@@ -1,0 +1,10 @@
+The problem is that Windows don't know how to open .phar files. You need to execute them using php interpreter php composer.phar update and the php interpreter(php.exe) must be accessible on PATH.
+
+You could use command php -v to check if your php is accessible from command line.
+
+In CMD:
+php C:\ProgramData\ComposerSetup\bin\composer.phar self-update
+
+Then
+composer update or 
+composer update guzzlehttp/psr7 google/apiclient
